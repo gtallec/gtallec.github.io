@@ -63,7 +63,24 @@ class ModelGhost extends ModelMovingActor
     }
     checkIfOnVertex()
     {
-        return this.model.askModelMazeIfOnVertex(this.x,this.y);
+        var direction = this.direction;
+        var permission = true
+        switch(direction)
+        {
+            case 'up':
+            case 'down':
+            {
+                permission = (this.xSubdivision === 0);
+                break;
+            }
+            case 'left':
+            case 'right':
+            {
+                permission = (this.ySubdivision === 0);
+                break;
+            }
+        }
+        return permission&&this.model.askModelMazeIfOnVertex(this.x,this.y);
     }
     askModelForDirection()
     {

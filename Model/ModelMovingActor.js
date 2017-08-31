@@ -73,12 +73,17 @@ class ModelMovingActor
                             permission = this.askModelForPermission(newX - 1,y);
                         }
                         var distanceInXSubdivision = this.xSubdivision - distance;
-                        var newXSubdivision = distanceInXSubdivision%numberOfSubdivisions;
+                        var newXSubdivision = distanceInXSubdivision;
+                        var boxesToBeCrossed = 0;
+                        while(newXSubdivision < 0)
+                        {
+                            newXSubdivision = newXSubdivision + numberOfSubdivisions;
+                            boxesToBeCrossed++;
+                        }
                         if(permission)
                         {
                             this.xSubdivision = newXSubdivision;
                         }
-                        var boxesToBeCrossed = Math.floor(Math.abs(distanceInXSubdivision/numberOfSubdivisions));
                         while((boxesToBeCrossed !== 0)&&(permission))
                         {
                             permission = this.askModelForPermission(newX-1,y);
@@ -103,12 +108,19 @@ class ModelMovingActor
                             permission = this.askModelForPermission(x,newY - 1);
                         }
                         var distanceInYSubdivision = this.ySubdivision - distance;
-                        var newYSubdivision = distanceInYSubdivision%numberOfSubdivisions;
+                        var newYSubdivision = distanceInYSubdivision;
+                        var boxesToBeCrossed = 0;
+                        while(newYSubdivision < 0)
+                        {
+                            boxesToBeCrossed++;
+                            newYSubdivision = numberOfSubdivisions + newYSubdivision;
+                        }
                         if(permission)
                         {
                             this.ySubdivision = newYSubdivision;
+                            console.log('left, y subdivision : ' + this.ySubdivision);
                         }
-                        var boxesToBeCrossed = Math.floor(Math.abs(distanceInYSubdivision/numberOfSubdivisions));
+
                         while((boxesToBeCrossed !== 0)&&(permission))
                         {
                             permission = this.askModelForPermission(x,newY - 1);
@@ -132,12 +144,14 @@ class ModelMovingActor
                             permission = this.askModelForPermission(x,newY + 1);
                         }
                         var distanceInYSubdivision = this.ySubdivision + distance;
+                        console.log('distanceInYSubdivisions : ' + distanceInYSubdivision);
                         var newYSubdivision = distanceInYSubdivision%numberOfSubdivisions;
                         if(permission)
                         {
                             this.ySubdivision = newYSubdivision;
                         }
                         var boxesToBeCrossed = Math.floor(distanceInYSubdivision/numberOfSubdivisions);
+                        console.log('boxesToBeCrossed : ' + boxesToBeCrossed);
                         while((boxesToBeCrossed !== 0)&&(permission))
                         {
                             permission = this.askModelForPermission(x,newY + 1);
@@ -147,6 +161,7 @@ class ModelMovingActor
                             }
                             boxesToBeCrossed = boxesToBeCrossed - 1;
                         }
+                        console.log('y : ' + newY);
                         this.y = newY;
                     }
                     break;

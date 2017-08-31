@@ -17,7 +17,7 @@ class Model
         var ghostSpeed;
         var trollingProbability;
         var modelGhost;
-        var numberOfSubdivisions = 1000;
+        var numberOfSubdivisions = 10;
         this.listOfModelGhosts = new Array();
         for(var i = 0 ; i < listOfGhosts.length ; i++)
         {
@@ -28,7 +28,7 @@ class Model
             trollingProbability = ghost.trollingProbability;*/
             xGhost = 5;
             yGhost = 3;
-            ghostSpeed = 10;
+            ghostSpeed = 1;
             trollingProbability = 0.5;
             modelGhost = new ModelGhost(xGhost,yGhost,ghostSpeed,numberOfSubdivisions,this,trollingProbability,i);
             this.listOfModelGhosts.push(modelGhost);
@@ -37,7 +37,7 @@ class Model
         //var pacman = intelFromDB.pacman;
         var xPacman = 1; //pacman.x;
         var yPacman = 1; //pacman.y;
-        var pacmanSpeed = 10; //pacman.speed;
+        var pacmanSpeed = 1; //pacman.speed;
         this.modelPacman = new ModelPacman(xPacman,yPacman,pacmanSpeed,numberOfSubdivisions,this);
         //Initialise the view
         this.view = new View(this);
