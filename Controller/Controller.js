@@ -8,7 +8,7 @@ class Controller
         this.view = null;
         this.levelEnded = 10000;
         this.gameEnded = 1;
-        this.worker = new Worker('pulser.js');
+        this.worker = new Worker(URL.createObjectURL(new Blob(["("+worker_function.toString()+")()"], {type: 'text/javascript'})));
         var controller = this;
         this.worker.onmessage = function(e)
         {
