@@ -13,14 +13,17 @@ class ViewMovingActor
         var numberOfSubdivisions = this.modelMovingActor.getNumberOfSubdivisions();
         var step = this.caseLength/numberOfSubdivisions;
         var subdivision = this.modelMovingActor.getSubdivisions();
-        var movingActor = null;
+        var movingActor = this.selectMovingActor();
         var caseLength = this.caseLength;
         if((xMovingActor != -1)&&(yMovingActor != -1))
         {
-            movingActor = this.selectMovingActor();
             movingActor.style.top = (caseLength * xMovingActor + step * subdivision.x) + 'px';
             movingActor.style.left = (caseLength * yMovingActor + step * subdivision.y) + 'px';
-        }  
+        }
+        else
+        {
+            movingActor.style.backgroundColor = 'white';
+        }
     }
     selectMovingActor()
     {
