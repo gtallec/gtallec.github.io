@@ -2,8 +2,9 @@ class ModelMaze
 {
     constructor(model,logicMaze)
     {
-        //this.logicMaze = logicMaze;
-        this.logicMaze = [
+        this.logicMaze = logicMaze;
+        this.graphOfIntersections = this.createIntersectionFromMaze();
+        /*this.logicMaze = [
                             [false,false,false,false,false,false,false,false],
                             [false,true,true,true,true,true,true,false],
                             [false,false,false,false,false,false,true,false],
@@ -13,9 +14,7 @@ class ModelMaze
                             [false,true,false,false,false,false,true,false],
                             [false,true,true,true,true,true,true,false],
                             [false,false,false,false,false,false,false,false],
-                        ];
-        this.graphOfIntersections = this.createIntersectionFromMaze();
-        console.log(this.graphOfIntersections)
+                        ];*/
         /*just for test
         var listOfVertices = this.graphOfIntersections.listOfVertices;
         //console.log(this.locateClosestVertex(0,3));
@@ -211,7 +210,6 @@ class ModelMaze
                     }
                     if(!alreadySeen.includes(upVertex))
                     {
-                        console.log(upVertex.listOfEdges);
                         alreadySeen.push(upVertex);
                         toBeTreated.push(upVertex);
                     }    

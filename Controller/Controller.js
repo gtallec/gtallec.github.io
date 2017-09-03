@@ -3,7 +3,6 @@ class Controller
     constructor()
     {
         this.state = 'initializing';
-        this.level = null; // Dans l'idéal le level sera tiré d'une DB
         this.model = null;
         this.view = null;
         this.levelEnded = 10000;
@@ -17,12 +16,12 @@ class Controller
     }
     preloadGame(level)
     {
-        this.level = level;
         this.model = new Model(level,this);
-        this.view = this.model.getView();
+        this.model.sendRequestToDB();
     }
-    startALevel()
+    startLevel()
     {
+        this.view = this.model.getView();
         this.view.displayPreparationContent();
         this.view.createView();
         this.state = 'waitingForPlayer';
@@ -59,7 +58,6 @@ class Controller
     playAGame()
     {
         this.preloadGame(0);
-        this.startALevel();
     }
     updatePacmanPosition()
     {

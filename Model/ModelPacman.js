@@ -1,8 +1,8 @@
 class ModelPacman extends ModelMovingActor
 {
-    constructor(x,y,speed,numberOfSubdivisions,model)
+    constructor(pacman,numberOfSubdivisions,model)
     {
-        super(x,y,speed,numberOfSubdivisions,model);
+        super(pacman,numberOfSubdivisions,model);
     }
     setDirection(direction)
     {

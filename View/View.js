@@ -3,7 +3,6 @@ class View
     constructor(model)
     {
         this.model = model;
-        console.log(model);
         this.caseLength = 10;
         this.viewMaze = new ViewMaze(model.getModelMaze(),this.caseLength);
         this.viewPacman = new ViewPacman(model.getModelPacman(),this.caseLength);

@@ -1,10 +1,11 @@
 class ModelGhost extends ModelMovingActor
 {
     // dans la pratique le fantome est soit relié à la view soit relié au game pour l'instant on le relie à a view
-    constructor(x, y, speed, numberOfSubdivisions, model,trollingProbability,number)
+    constructor(ghost, numberOfSubdivisions, model)
     {
-        super(x,y,speed,numberOfSubdivisions,model);
-        this.number = number;
+        super(ghost,numberOfSubdivisions,model);
+        this.number = ghost.number;
+        this.trollingProbability = ghost.trollingProbability;
         this.moving = false;
     }
     generateRandomPath()
@@ -80,6 +81,7 @@ class ModelGhost extends ModelMovingActor
                 break;
             }
         }
+        console.log(this.model);
         return permission&&this.model.askModelMazeIfOnVertex(this.x,this.y);
     }
     askModelForDirection()

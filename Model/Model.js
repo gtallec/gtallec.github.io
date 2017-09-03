@@ -1,46 +1,51 @@
 class Model
 {
-    constructor(level)
+    constructor(level,controller)
     {
-        this.gameIsOver = false;
-        //var intelFromDB = this.getIntelFromDB(level);
-        //About the maze
-        this.modelMaze = new ModelMaze(this,null);
-        this.normalMode = true;
-        //null is to be replaced by intelfromDB.maze
-        //var listOfGhosts = intelFromDB.listOfGhosts;
-        var listOfGhosts = [0];
-        //About the ghosts
-        var ghost;
-        var xGhost;
-        var yGhost;
-        var ghostSpeed;
-        var trollingProbability;
-        var modelGhost;
-        var numberOfSubdivisions = 10;
-        this.listOfModelGhosts = new Array();
-        for(var i = 0 ; i < listOfGhosts.length ; i++)
+        this.state = "initializing";
+        this.controller = controller;
+        this.level = level;
+        this.gameIsOver = null;
+        this.modelMaze = null;
+        this.normalMode = null;
+        this.listOfModelGhosts = null;
+        this.modelPacman = null;
+        this.view = null;
+        this.dataBaseReader = new DataBaseReader(this);
+    }
+    sendRequestToDB()
+    {
+        this.dataBaseReader.loadLevel(this.level);   
+    }
+    initialize(intelFromDB)
+    {
+        if(this.state === "initializing")
         {
-           /* ghost = listOfGhosts[i];
-            xGhost = ghost.x;
-            yGhost = ghost.y;
-            ghostSpeed = ghost.speed;
-            trollingProbability = ghost.trollingProbability;*/
-            xGhost = 5;
-            yGhost = 3;
-            ghostSpeed = 1;
-            trollingProbability = 0.5;
-            modelGhost = new ModelGhost(xGhost,yGhost,ghostSpeed,numberOfSubdivisions,this,trollingProbability,i);
-            this.listOfModelGhosts.push(modelGhost);
+            this.gameIsOver = false;
+            var numberOfSubdivisions = 10;
+            //About the maze
+            var maze = intelFromDB.maze;
+            this.modelMaze = new ModelMaze(this,maze);
+            this.normalMode = true;
+            //About the ghosts
+            var listOfGhosts = intelFromDB.listOfGhosts;
+            var ghost;
+            var modelGhost;
+            this.listOfModelGhosts = new Array(listOfGhosts.length);
+            for(var i = 0 ; i < listOfGhosts.length ; i++)
+            {
+                ghost = listOfGhosts[i];
+                modelGhost = new ModelGhost(ghost,numberOfSubdivisions,this);
+                this.listOfModelGhosts[i] = modelGhost;
+            }
+            //About PACMAN
+            var pacman = intelFromDB.pacman;
+            this.modelPacman = new ModelPacman(pacman,numberOfSubdivisions,this);
+            //Initialise the view
+            this.view = new View(this);
+            this.controller.startLevel();
         }
-        //About PACMAN
-        //var pacman = intelFromDB.pacman;
-        var xPacman = 1; //pacman.x;
-        var yPacman = 1; //pacman.y;
-        var pacmanSpeed = 1; //pacman.speed;
-        this.modelPacman = new ModelPacman(xPacman,yPacman,pacmanSpeed,numberOfSubdivisions,this);
-        //Initialise the view
-        this.view = new View(this);
+        this.state = 'update';
     }
     changePacmanPosition(direction)
     {
@@ -109,7 +114,6 @@ class Model
     }
     getLengthOfMaze()
     {
-        console.log('coucou c est moi');
         return this.modelMaze.getLength();
     }
 }

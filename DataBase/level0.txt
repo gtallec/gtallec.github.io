@@ -1,0 +1,14 @@
+{
+"maze" : [
+            [false,false,false,false,false,false,false,false,false],
+            [false,true,true,true,true,true,true,true,false],
+            [false,true,false,true,false,true,false,true,false],
+            [false,true,true,true,true,true,true,true,false],
+            [false,true,false,true,false,true,false,true,false],
+            [false,true,true,true,true,true,true,true,false],
+            [false,false,false,false,false,false,false,false,false]
+          ],
+ "listOfGhosts" : [{"x" : 1, "y" : 1, "speed" : 1, "trollingProbability" : 0.5, "number" : 0}],
+ "pacman" : {"x" : 5, "y" : 7, "speed" : 4}
+ }
+            

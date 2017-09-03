@@ -1,11 +1,11 @@
 class ModelMovingActor
 {
-    constructor(x, y, speed, numberOfSubdivisions, model)
+    constructor(movingActor,numberOfSubdivisions,model)
     {
         this.model = model;
-        this.x = x;
-        this.y = y;
-        this.speed = speed;// en subdivision par pulse
+        this.x = movingActor.x;
+        this.y = movingActor.y;
+        this.speed = movingActor.speed;// en subdivision par pulse
 
         this.numberOfSubdivisions = numberOfSubdivisions;
         this.xSubdivision = 0;
@@ -118,7 +118,6 @@ class ModelMovingActor
                         if(permission)
                         {
                             this.ySubdivision = newYSubdivision;
-                            console.log('left, y subdivision : ' + this.ySubdivision);
                         }
 
                         while((boxesToBeCrossed !== 0)&&(permission))
@@ -144,14 +143,12 @@ class ModelMovingActor
                             permission = this.askModelForPermission(x,newY + 1);
                         }
                         var distanceInYSubdivision = this.ySubdivision + distance;
-                        console.log('distanceInYSubdivisions : ' + distanceInYSubdivision);
                         var newYSubdivision = distanceInYSubdivision%numberOfSubdivisions;
                         if(permission)
                         {
                             this.ySubdivision = newYSubdivision;
                         }
                         var boxesToBeCrossed = Math.floor(distanceInYSubdivision/numberOfSubdivisions);
-                        console.log('boxesToBeCrossed : ' + boxesToBeCrossed);
                         while((boxesToBeCrossed !== 0)&&(permission))
                         {
                             permission = this.askModelForPermission(x,newY + 1);
@@ -161,7 +158,6 @@ class ModelMovingActor
                             }
                             boxesToBeCrossed = boxesToBeCrossed - 1;
                         }
-                        console.log('y : ' + newY);
                         this.y = newY;
                     }
                     break;
