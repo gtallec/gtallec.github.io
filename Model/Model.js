@@ -3,6 +3,7 @@ class Model
     constructor(level,controller)
     {
         this.state = "initializing";
+        this.randomizeLabyrinthe = true;
         this.controller = controller;
         this.level = level;
         this.gameIsOver = null;
@@ -15,7 +16,14 @@ class Model
     }
     sendRequestToDB()
     {
-        this.dataBaseReader.loadLevel(this.level);   
+        if(this.randomizeLabyrinthe)
+        {
+            this.getRandomIntel(5,5);
+        }
+        else
+        {
+            this.dataBaseReader.loadLevel(this.level);
+        }
     }
     initialize(intelFromDB)
     {
@@ -115,5 +123,11 @@ class Model
     getLengthOfMaze()
     {
         return this.modelMaze.getLength();
+    }
+    getRandomIntel(height,width)
+    {
+        var levelGenerator = new LevelGenerator();
+        var intel = levelGenerator.generateLevel(height,width);
+        this.initialize(intel);
     }
 }
